@@ -1,5 +1,9 @@
 # Shark Attack Dataset Analysis
 
+📓 [Jupyter Notebook](Shark_Attacks.ipynb)
+📊 [View Project Slides](https://docs.google.com/presentation/d/1S4-Dp7hUE5fuvDM1wnxrG_bx-HsWqrsjZrHfotUjU5c/edit?usp=sharing)
+🦈 [Original Dataset](https://www.sharkattackfile.net/)
+
 ## Project Overview
 
 This project explores a global shark attack dataset using Python for data cleaning, transformation, and exploratory data analysis (EDA).
