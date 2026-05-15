@@ -11,6 +11,16 @@ def clean_col_names(df):
 def clean_df(df):
     df2=df.copy()
     df2 = df2.map(lambda x:x.lower().strip() if isinstance(x,str) else x)
+    df2 = df2.dropna(how='all')
+    df2 = df2.drop_duplicates()
+    df2.drop(columns=["pdf"], inplace = True)
+    df2.drop(columns=["href_formula"], inplace = True)
+    df2.drop(columns=["href"], inplace = True)
+    df2.drop(columns=["case_number"], inplace = True)
+    df2.drop(columns=["case_number.1"], inplace = True)
+    df2.drop(columns=["original_order"], inplace = True)
+    df2.drop(columns=["unnamed:_21"], inplace = True)
+    df2.drop(columns=["unnamed:_22"], inplace = True)
     return df2
 
 def clean_col_date(df):
@@ -250,20 +260,28 @@ def clean_col_4_country(df):
     return df2
 
 def clean_col_activity(df):
-    """
-    use regex to find entries with surf and board
-    use regex to find entries with fishing
-    """
+
     df2 = df.copy()
-    no_board_pattern = r'\b(?:swim(?:ming)?|bathing|snorkel(?:ing)?)\b'
+    # no_board_pattern = r'\b(?:swim(?:ming)?|bathing|snorkel(?:ing)?)\b'
+    # fishing_pattern = r'\b\w*fishing\b'
+    # board_pattern = r'\b(?:board|surf)\b'
+    # diving_pattern = r'\b(?:dive|diving|scuba)\b'
+    # df2.loc[df2.activity.str.contains(r'sunbathing', case=False, na=False),'activity'] = 'other'
+    # df2.loc[df2.activity.str.contains(board_pattern, case=False, na=False),'activity'] = 'boarding'
+    # df2.loc[df2.activity.str.contains(no_board_pattern, case=False, na=False),'activity'] = 'swimming'
+    # df2.loc[df2.activity.str.contains(fishing_pattern, case=False, na=False),'activity'] = 'fishing'
+    # df2.loc[df2.activity.str.contains(diving_pattern, case=False, na=False),'activity'] = 'diving'
+
+    no_board_pattern = r'\b(swim(ming)?|bathing|snorkel(ing)?)\b'
     fishing_pattern = r'\b\w*fishing\b'
-    board_pattern = r'\b(?:board|surf)\b'
-    diving_pattern = r'\b(?:dive|diving|scuba)\b'
+    board_pattern = r'board|surf'
+    diving_pattern = r'\b(div(e|ing)?|scuba)\b'
     df2.loc[df2.activity.str.contains(r'sunbathing', case=False, na=False),'activity'] = 'other'
     df2.loc[df2.activity.str.contains(board_pattern, case=False, na=False),'activity'] = 'boarding'
     df2.loc[df2.activity.str.contains(no_board_pattern, case=False, na=False),'activity'] = 'swimming'
     df2.loc[df2.activity.str.contains(fishing_pattern, case=False, na=False),'activity'] = 'fishing'
     df2.loc[df2.activity.str.contains(diving_pattern, case=False, na=False),'activity'] = 'diving'
+    
     return df2
 
 def clean_col_sex(df):
